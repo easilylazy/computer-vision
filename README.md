@@ -1,4 +1,26 @@
+## 复现问题
+
+1. ValueError: setting an array element with a sequence.
+
+因为更换了数据集，读入的数据集不一致，因此需要将图像进行裁剪处理
+
+2. TypeError: 'NoneType' object is not subscriptable
+
+cv的api更新，没有
+
+
+
+ValueError: operands could not be broadcast together with shapes (1,8460) (27468,) (1,8460) 
+
+
+
 ## 车辆检测
+
+
+
+
+
+
 将会进行如下操作：
 
 1. 定义图像特征提取方

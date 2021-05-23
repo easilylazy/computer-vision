@@ -1,3 +1,72 @@
+# computer-vision
+
+人工智能与自动化学院18级计算机视觉大作业
+
+## 基元检测
+
+### [SUSAN边缘点检测](susan.ipynb)
+首先实现课程中的一个简单而实用的SUSAN特征提取
+```py
+def Susan(img,T=50,template=[]):
+    i=2 # 5*5
+    if len(template)==0:
+        Smax=24
+        G=3*Smax/4
+    else:
+        Smax=len(template[template==1])
+        G=3*Smax/4
+
+    R=np.zeros(grayImg.shape)
+    for row in range(rows):
+        for col in range(cols):
+            # template
+            
+            center=grayImg[row][col]
+            try:
+                nucleus=grayImg[row-i:row+i+1,col-i:col+i+1]
+                if len(template)!=0:
+                    nucleus=nucleus[np.where(template)]
+                # print(template[abs(template-center)>0.3])
+                num=len(nucleus[abs(nucleus-center)<=T])
+                if num<G:
+                    R[row][col]=G-num
+            except:
+                pass
+    return R
+```
+#### 实验效果  
+
+![susanT](res/differentT.png)
+上图是不同阈值T的结果，可见，随着T的增大，边缘逐渐减少，直至没有边缘点、角点检出，与理论情况一致。
+### [Harris角点检测](harris.ipynb)
+再利用Harris角点提取算法，找到图像中的角点关键点
+```py
+def Harris(img,i=2,k=0.04):
+    R=np.zeros(grayImg.shape)
+    size=2*i+1
+    Ws=np.multiply(grayImg.reshape(grayImg.shape[0],grayImg.shape[1],1,1),H[:,:,])
+    for row in range(rows):
+        for col in range(cols):
+            try:
+                M=np.sum(Ws[row-i:row+i+1,col-i:col+i+1],axis=(0,1))
+                R[row,col]=np.linalg.det(M)-k*np.trace(M)
+            except:
+                pass
+    return R
+```
+#### 实验效果
+这是不同方向的梯度图像：
+
+![graident](res/gradient.png)
+ 
+通过梯度大小反映图像像素的变化情况，由此定位角点。
+ 
+![window](res/differentWindow.png)
+这是不同的窗口大小对角点检测结果的影响，可见在增大窗口大小时，得到的角点响应会更多。
+
+
+
+
 ## 复现问题
 
 1. ValueError: setting an array element with a sequence.

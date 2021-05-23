@@ -1,4 +1,4 @@
-# computer-vision
+# [computer-vision](https://github.com/easilylazy/computer-vision)
 
 人工智能与自动化学院18级计算机视觉大作业
 - [computer-vision](#computer-vision)
@@ -7,8 +7,9 @@
       - [实验效果](#实验效果)
     - [Harris角点检测](#harris角点检测)
       - [实验效果](#实验效果-1)
-  - [复现问题](#复现问题)
   - [车辆检测](#车辆检测)
+    - [复现问题](#复现问题)
+    - [算法流程](#算法流程)
   - [基于CNN](#基于cnn)
     - [数据准备、图像归一化](#数据准备图像归一化)
     - [模型选取](#模型选取)
@@ -16,7 +17,7 @@
     - [问题：](#问题)
   - [帧间差分法](#帧间差分法)
     - [基本原理](#基本原理)
-    - [算法流程](#算法流程)
+    - [算法流程](#算法流程-1)
   - [参考资料](#参考资料)
 ## 基元检测
 
@@ -81,30 +82,17 @@ def Harris(img,i=2,k=0.04):
 这是不同的窗口大小对角点检测结果的影响，可见在增大窗口大小时，得到的角点响应会更多。
 
 
-
-
-## 复现问题
-
-1. ValueError: setting an array element with a sequence.
-
-因为更换了数据集，读入的数据集不一致，因此需要将图像进行裁剪处理
-
-2. TypeError: 'NoneType' object is not subscriptable
-
-cv的api更新，没有
-
-
-
-ValueError: operands could not be broadcast together with shapes (1,8460) (27468,) (1,8460) 
-
-
-
 ## [车辆检测](hog.ipynb)
 
+### 复现问题
 
-
-
-
+1.	ValueError: setting an array element with a sequence.    
+ 因为更换了数据集，读入的数据集不一致，因此需要将图像进行裁剪处理
+2.	TypeError: 'NoneType' object is not subscriptable   
+cv的api更新，没有此前的图像代码
+3.	ValueError: operands could not be broadcast together with shapes (1,8460) (27468,) (1,8460)   
+由于训练使用的窗口不同，则得出的hog特征尺度不一致，调整为相同的32*32大小图像即可
+### 算法流程
 
 将会进行如下操作：
 
